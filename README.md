@@ -7,6 +7,8 @@ Features:
  - Add delay to the server response to test high latency scenarios
  
 
+![alt text](https://raw.githubusercontent.com/thehecht/api-proxy/master/screenshot.png "Screenshot")
+
 ## Installation
 
 Install Meteor:
