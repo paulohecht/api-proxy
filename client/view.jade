@@ -1,0 +1,109 @@
+head
+  title
+    | API Proxy
+
+body
+  
+template(name="layout")
+  .navbar.navbar-default
+    .container
+      .navbar-header
+        a.navbar-brand(href="/")
+          | API Proxy
+  .container
+    +yield
+    
+template(name="list")
+  h4
+    | Target
+  form.form.target
+    .form-group
+      label
+        | Target URL:
+      input.form-control.input-target(type="text", value="{{config.target}}", placeholder="ex: http://localhost:8080")
+    .form-group
+      label
+        | Delay (ms):
+      input.form-control.input-delay(type="text", value="{{config.delay}}", placeholder="ex: 1000")
+    button.btn.btn-primary
+      | Save
+  hr
+  h4
+    | Rules
+  a.btn.btn-primary(href="/new")
+    i.fa.fa-plus
+    | Add Rule
+  table.table
+    thead
+      tr
+        th
+        th
+          | Method
+        th
+          | URL
+        th
+          | Code
+        th
+          | Body
+        th
+          | Pri
+        th
+    tbody
+      each rules
+        tr(class="{{class}}")
+          th
+            if active
+              button.btn.btn-link.btn-pause
+                i.fa.fa-play
+            else
+              button.btn.btn-link.btn-resume
+                i.fa.fa-pause
+          th
+            | {{method}}
+          th
+            | {{url}}
+          th
+            | {{code}}
+          th
+            | {{body}}
+          th
+            | {{priority}}
+          th
+            a.btn.btn-link(href="/edit/#{_id}")
+              i.fa.fa-pencil
+            button.btn.btn-link.btn-remove
+              i.fa.fa-trash-o
+
+template(name="new")
+  +form
+
+template(name="edit")
+  +form
+  
+template(name="form")
+  .row
+    .col-sm-6.col-sm-offset-3
+      form.form
+        .form-group
+          label
+            | Method (todo: select)
+          input.form-control.input-method(type="text", value="{{method}}", placeholder="ex: get, post")
+        .form-group
+          label
+            | URL Rule (todo: accept regex)
+          input.form-control.input-url(type="text", value="{{url}}", placeholder="ex: \/api, \/users")
+        .form-group
+          label
+            | Code (todo: only number)
+          input.form-control.input-code(type="text", value="{{code}}", placeholder="ex: 200, 404, 500")
+        .form-group
+          label
+            | Body (todo: json editor)
+          textarea.form-control.input-body(placeholder="ex: {\"success\": true}")
+            | {{body}}
+        .form-group
+          label
+            | Priority (todo: only number)
+          input.form-control.input-priority(type="text", value="{{priority}}", placeholder="ex: 1, 5, 10")
+        button.btn.btn-primary
+          | Save
